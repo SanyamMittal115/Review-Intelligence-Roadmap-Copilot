@@ -1,0 +1,21 @@
+{
+  "app_name": "Spotify",
+  "app_id": "324684580",
+  "review_count": 238,
+  "avg_rating": 3.8,
+  "_placeholder": "This is illustrative sample data. Run `python generate_examples.py` locally with your API key to replace this with real results, then commit the output.",
+  "rice_table": [
+    {"theme": "Bug/Crash", "review_count": 62, "avg_rating": 1.9, "avg_sentiment": -0.75, "reach": 10.0, "impact": 8.8, "confidence": 8.0, "effort": 4.0, "rice_score": 176.0},
+    {"theme": "Performance", "review_count": 47, "avg_rating": 2.4, "avg_sentiment": -0.6, "reach": 7.6, "impact": 8.0, "confidence": 8.0, "effort": 5.0, "rice_score": 97.3},
+    {"theme": "Feature Request", "review_count": 39, "avg_rating": 3.9, "avg_sentiment": 0.15, "reach": 6.3, "impact": 4.3, "confidence": 8.0, "effort": 5.0, "rice_score": 43.3},
+    {"theme": "Pricing", "review_count": 35, "avg_rating": 2.6, "avg_sentiment": -0.5, "reach": 5.6, "impact": 7.5, "confidence": 8.0, "effort": 7.0, "rice_score": 48.0},
+    {"theme": "Praise", "review_count": 55, "avg_rating": 5.0, "avg_sentiment": 0.85, "reach": 8.9, "impact": 0.75, "confidence": 8.0, "effort": 1.0, "rice_score": 53.4}
+  ],
+  "samples_by_theme": {
+    "Bug/Crash": ["App freezes when switching devices", "Playback stutters on cellular data", "Shuffle mode ignores user setting after restart"],
+    "Performance": ["App takes long time to load playlists", "Battery drains faster since last update", "Search feels sluggish compared to before"],
+    "Feature Request": ["Wants lyrics sync improvements", "Requests better collaborative playlist controls", "Asks for a sleep timer option"],
+    "Pricing": ["Frustrated by price increase without new features", "Wants clearer family plan management", "Compares unfavorably to competitor pricing"],
+    "Praise": ["Loves personalized Discover Weekly playlist", "Appreciates seamless cross-device experience", "Credits app for great podcast integration"]
+  }
+}

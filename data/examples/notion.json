@@ -1,0 +1,21 @@
+{
+  "app_name": "Notion",
+  "app_id": "1232780281",
+  "review_count": 176,
+  "avg_rating": 4.4,
+  "_placeholder": "This is illustrative sample data. Run `python generate_examples.py` locally with your API key to replace this with real results, then commit the output.",
+  "rice_table": [
+    {"theme": "Performance", "review_count": 44, "avg_rating": 2.7, "avg_sentiment": -0.55, "reach": 10.0, "impact": 7.8, "confidence": 8.0, "effort": 6.0, "rice_score": 104.0},
+    {"theme": "Feature Request", "review_count": 40, "avg_rating": 4.1, "avg_sentiment": 0.25, "reach": 9.1, "impact": 3.8, "confidence": 8.0, "effort": 5.0, "rice_score": 55.3},
+    {"theme": "UX/Usability", "review_count": 31, "avg_rating": 3.7, "avg_sentiment": 0.1, "reach": 7.0, "impact": 4.5, "confidence": 8.0, "effort": 4.0, "rice_score": 63.0},
+    {"theme": "Bug/Crash", "review_count": 22, "avg_rating": 2.3, "avg_sentiment": -0.6, "reach": 5.0, "impact": 8.0, "confidence": 8.0, "effort": 3.0, "rice_score": 106.7},
+    {"theme": "Praise", "review_count": 39, "avg_rating": 5.0, "avg_sentiment": 0.9, "reach": 8.9, "impact": 0.5, "confidence": 8.0, "effort": 1.0, "rice_score": 35.6}
+  ],
+  "samples_by_theme": {
+    "Performance": ["Mobile app feels slow opening large pages", "Sync delays between desktop and mobile", "Search takes too long in big workspaces"],
+    "Feature Request": ["Wants better offline editing support", "Requests native calendar view improvements", "Asks for more granular sharing permissions"],
+    "UX/Usability": ["Onboarding feels overwhelming for new users", "Wants simpler template discovery", "Mobile keyboard shortcuts feel limited"],
+    "Bug/Crash": ["App crashes when pasting large tables", "Formatting breaks after offline edits sync", "Images occasionally fail to upload"],
+    "Praise": ["Loves flexibility for personal organization", "Credits app for team wiki use case", "Appreciates database and template system"]
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "app_name": "Duolingo",
+  "app_id": "570060128",
+  "review_count": 214,
+  "avg_rating": 4.2,
+  "_placeholder": "This is illustrative sample data. Run `python generate_examples.py` locally with your API key to replace this with real results, then commit the output.",
+  "rice_table": [
+    {"theme": "Feature Request", "review_count": 58, "avg_rating": 4.0, "avg_sentiment": 0.2, "reach": 10.0, "impact": 4.0, "confidence": 8.0, "effort": 4.0, "rice_score": 80.0},
+    {"theme": "Bug/Crash", "review_count": 41, "avg_rating": 2.1, "avg_sentiment": -0.7, "reach": 7.1, "impact": 8.5, "confidence": 8.0, "effort": 3.0, "rice_score": 161.1},
+    {"theme": "Pricing", "review_count": 33, "avg_rating": 2.8, "avg_sentiment": -0.5, "reach": 5.7, "impact": 7.5, "confidence": 8.0, "effort": 6.0, "rice_score": 57.0},
+    {"theme": "UX/Usability", "review_count": 29, "avg_rating": 3.6, "avg_sentiment": 0.1, "reach": 5.0, "impact": 4.5, "confidence": 8.0, "effort": 4.0, "rice_score": 45.0},
+    {"theme": "Praise", "review_count": 53, "avg_rating": 5.0, "avg_sentiment": 0.9, "reach": 9.1, "impact": 0.5, "confidence": 8.0, "effort": 1.0, "rice_score": 36.4}
+  ],
+  "samples_by_theme": {
+    "Feature Request": ["Wants offline mode for more languages", "Asks for a dark mode toggle", "Requests custom daily goal settings"],
+    "Bug/Crash": ["App crashes after completing streak freeze", "Audio stops working mid-lesson", "Progress not syncing across devices"],
+    "Pricing": ["Feels Super subscription price increase is steep", "Wants a student discount option", "Confused by family plan pricing"],
+    "UX/Usability": ["Finds new lesson layout harder to navigate", "Wants clearer explanation of grammar rules", "Notification frequency feels excessive"],
+    "Praise": ["Loves the gamified streak system", "Credits app with real fluency progress", "Appreciates the friendly mascot reminders"]
+  }
+}
