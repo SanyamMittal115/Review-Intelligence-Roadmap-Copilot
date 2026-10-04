@@ -1,5 +1,2 @@
-streamlit
-pandas
-requests
-openai
-python-dotenv
+# Legacy Streamlit dependencies are intentionally not installed by Vercel.
+# The production app uses index.html plus JavaScript functions under /api.
