@@ -8,61 +8,67 @@ export default async function handler(req, res) {
     const seen = new Set();
     const pageStats = [];
 
+    const text = v => String(v?.label ?? v ?? '').trim();
+
     for (let p = 1; p <= pages; p++) {
-      // Apple's public customer-review feed is storefront + page specific.
-      // Request XML explicitly because the legacy /json route can return an
-      // empty/non-review payload on Vercel even when reviews exist.
-      const url = `https://itunes.apple.com/us/rss/customerreviews/page=${p}/id=${encodeURIComponent(id)}/sortby=mostrecent/xml`;
+      // Apple's JSON RSS endpoint respects the page segment. The previous XML
+      // implementation could return the same first page repeatedly, which was
+      // then deduplicated down to 50 reviews regardless of the user's choice.
+      const url = `https://itunes.apple.com/us/rss/customerreviews/page=${p}/id=${encodeURIComponent(id)}/sortby=mostrecent/json`;
       const r = await fetch(url, {
+        cache: 'no-store',
         headers: {
-          'Accept': 'application/atom+xml, application/xml, text/xml;q=0.9, */*;q=0.8',
-          'User-Agent': 'Mozilla/5.0 ReviewIntelligence/1.0'
+          Accept: 'application/json',
+          'User-Agent': 'ReviewIntelligence/1.0'
         }
       });
 
       if (!r.ok) {
-        pageStats.push({ page: p, status: r.status, count: 0 });
+        pageStats.push({ page: p, status: r.status, received: 0, added: 0 });
         continue;
       }
 
-      const xml = await r.text();
-      const entries = [...xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)].map(m => m[1]);
-      let added = 0;
+      let data;
+      try {
+        data = await r.json();
+      } catch {
+        pageStats.push({ page: p, status: r.status, received: 0, added: 0 });
+        continue;
+      }
 
-      const decode = (s = '') => s
-        .replace(/<!\[CDATA\[([\s\S]*?)\]\]>/g, '$1')
-        .replace(/&amp;/g, '&')
-        .replace(/&lt;/g, '<')
-        .replace(/&gt;/g, '>')
-        .replace(/&quot;/g, '"')
-        .replace(/&#39;|&apos;/g, "'")
-        .replace(/&#(\d+);/g, (_, n) => String.fromCharCode(Number(n)))
-        .trim();
-      const get = (entry, tag) => {
-        const escaped = tag.replace(':', '\\:');
-        const m = entry.match(new RegExp(`<${escaped}(?:\\s[^>]*)?>([\\s\\S]*?)<\\/${escaped}>`));
-        return m ? decode(m[1]) : '';
-      };
+      const entries = Array.isArray(data?.feed?.entry) ? data.feed.entry : [];
+      let added = 0;
+      let received = 0;
 
       for (const entry of entries) {
-        const rating = Number(get(entry, 'im:rating'));
-        if (!rating) continue; // skips the app metadata entry
-        const reviewId = get(entry, 'id') || `${p}:${get(entry, 'author')}:${get(entry, 'title')}:${get(entry, 'updated')}`;
+        const rating = Number(text(entry?.['im:rating']));
+        if (!rating) continue; // Apple includes one app metadata entry on page 1.
+        received++;
+
+        const reviewId = text(entry?.id) || `${p}:${text(entry?.author?.name)}:${text(entry?.title)}:${text(entry?.updated)}`;
         if (seen.has(reviewId)) continue;
         seen.add(reviewId);
+
         reviews.push({
-          review: get(entry, 'content'),
+          review: text(entry?.content),
           rating,
-          title: get(entry, 'title'),
-          author: get(entry, 'name'),
-          version: get(entry, 'im:version')
+          title: text(entry?.title),
+          author: text(entry?.author?.name),
+          version: text(entry?.['im:version'])
         });
         added++;
       }
-      pageStats.push({ page: p, status: r.status, count: added });
+
+      pageStats.push({ page: p, status: r.status, received, added });
     }
 
-    return res.status(200).json({ reviews, requestedPages: pages, fetchedReviews: reviews.length, pageStats });
+    res.setHeader('Cache-Control', 'no-store, max-age=0');
+    return res.status(200).json({
+      reviews,
+      requestedPages: pages,
+      fetchedReviews: reviews.length,
+      pageStats
+    });
   } catch (e) {
     return res.status(500).json({ error: e.message });
   }
